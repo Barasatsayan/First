@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Color Slide Show</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f4f4f4;
+      transition: background-color 0.6s ease;
+    }
+
+    .container {
+      text-align: center;
+      background: rgba(255, 255, 255, 0.2);
+      padding: 50px;
+      border-radius: 20px;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+      width: 80%;
+      max-width: 600px;
+    }
+
+    h3 {
+      font-size: 2.8rem;
+      margin-bottom: 30px;
+      color: #ffffff;
+      text-shadow: 1px 1px 4px rgba(0,0,0,0.6);
+    }
+
+    .slide-text {
+      font-size: 2rem;
+      color: white;
+      margin-bottom: 30px;
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.5s ease;
+    }
+
+    .slide-text.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    button {
+      padding: 12px 30px;
+      font-size: 1.2rem;
+      border: none;
+      border-radius: 8px;
+      background-color: #000000cc;
+      color: white;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #333;
+    }
+  </style>
+</head>
+<body id="bdy">
+  <div class="container">
+    <h3>Color Slide Show</h3>
+    <div class="slide-text" id="slideText">Welcome!</div>
+    <button onclick="nextSlide()">Next Slide</button>
+  </div>
+
+  <script>
+    const slides = [
+      { color: "#ff4d4d", text: "Energetic Red" },
+      { color: "#28a745", text: "Refreshing Green" },
+      { color: "#ffc107", text: "Bright Yellow" },
+      { color: "#007bff", text: "Cool Blue" },
+      { color: "#6f42c1", text: "Royal Purple" },
+      { color: "#20c997", text: "Teal Vibes" },
+    ];
+
+    let index = 0;
+
+    function nextSlide() {
+      const body = document.getElementById("bdy");
+      const text = document.getElementById("slideText");
+
+      // Update color and text
+      const current = slides[index];
+      body.style.backgroundColor = current.color;
+      text.classList.remove("show");
+      setTimeout(() => {
+        text.innerText = current.text;
+        text.classList.add("show");
+      }, 100);
+
+      // Loop to next
+      index = (index + 1) % slides.length;
+    }
+  </script>
+</body>
+</html>
